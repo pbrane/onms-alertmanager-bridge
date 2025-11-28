@@ -1,0 +1,149 @@
+version: '3.8'
+
+services:
+  # OpenNMS Alertmanager Bridge
+  opennms-alertmanager-bridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: opennms-alertmanager-bridge:latest
+    container_name: opennms-alertmanager-bridge
+    ports:
+      - "8080:8080"
+    environment:
+      # Kafka Configuration
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_CONSUMER_GROUP: opennms-alertmanager-bridge
+      KAFKA_TOPIC_ALARMS: alarms
+      KAFKA_TOPIC_NODES: nodes
+      
+      # Alertmanager Configuration
+      ALERTMANAGER_URL: http://alertmanager:9093
+      ALERTMANAGER_ENABLED: "true"
+      
+      # OpenNMS Configuration
+      OPENNMS_URL: http://opennms:8980/opennms
+      
+      # Alert Configuration
+      ALERT_RESEND_INTERVAL: "60000"
+      ENVIRONMENT: development
+      
+      # Logging
+      LOG_LEVEL: DEBUG
+      
+      # JVM Options
+      JAVA_OPTS: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Xms256m -Xmx512m"
+    depends_on:
+      - kafka
+      - alertmanager
+    networks:
+      - opennms-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  # Zookeeper for Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - opennms-network
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+
+  # Kafka
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - opennms-network
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+
+  # Prometheus Alertmanager
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager-data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://localhost:9093'
+      - '--cluster.listen-address='
+    networks:
+      - opennms-network
+    restart: unless-stopped
+
+  # Prometheus (optional - for collecting bridge metrics)
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    networks:
+      - opennms-network
+    restart: unless-stopped
+
+  # Grafana (optional - for visualization)
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_INSTALL_PLUGINS: camptocamp-prometheus-alertmanager-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+      - alertmanager
+    networks:
+      - opennms-network
+    restart: unless-stopped
+
+networks:
+  opennms-network:
+    driver: bridge
+
+volumes:
+  zookeeper-data:
+  zookeeper-logs:
+  kafka-data:
+  alertmanager-data:
+  prometheus-data:
+  grafana-data:

@@ -1,0 +1,44 @@
+# macOS cruft
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IntelliJ / IDEA
+.idea/
+*.iml
+out/
+*.ipr
+*.iws
+
+# Maven / Gradle
+target/
+build/
+.gradle/
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+logs/
+
+# Spring Boot
+# If you keep application-local.yml for secrets, ignore it:
+application-local.yml
+application-local.properties
+
+# Env & secrets
+.env
+*.pem
+*.p12
+*.keystore
+*.jks
+*.crt
+*.key
+*.der
+*.pfx
+
+# Node (if any UI in the repo)
+node_modules/
+dist/
+
+# Docker
+*.env.docker

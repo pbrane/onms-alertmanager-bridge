@@ -1,0 +1,38 @@
+# Grafana Datasource Provisioning
+# Automatically configures datasources on startup
+
+apiVersion: 1
+
+datasources:
+  # Prometheus datasource
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    jsonData:
+      timeInterval: "15s"
+      httpMethod: POST
+
+  # Alertmanager as datasource (built-in)
+  - name: Alertmanager
+    type: alertmanager
+    access: proxy
+    url: http://alertmanager:9093
+    editable: true
+    jsonData:
+      implementation: prometheus
+      handleGrafanaManagedAlerts: false
+
+  # Alertmanager datasource (community plugin)
+  - name: OpenNMS Alertmanager
+    type: camptocamp-prometheus-alertmanager-datasource
+    access: proxy
+    url: http://alertmanager:9093
+    editable: true
+    jsonData:
+      severity_critical: critical
+      severity_high: major
+      severity_warning: warning,minor
+      severity_info: info,normal

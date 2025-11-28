@@ -1,0 +1,46 @@
+# Prometheus configuration
+# For monitoring the bridge application and collecting metrics
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'opennms-bridge-monitor'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Rule files
+rule_files:
+  # - "rules/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # OpenNMS Alertmanager Bridge
+  - job_name: 'opennms-alertmanager-bridge'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['opennms-alertmanager-bridge:8080']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'opennms-bridge'
+
+  # Alertmanager metrics
+  - job_name: 'alertmanager'
+    static_configs:
+      - targets: ['alertmanager:9093']
+
+  # Kafka metrics (if using JMX exporter)
+  # - job_name: 'kafka'
+  #   static_configs:
+  #     - targets: ['kafka:7071']
