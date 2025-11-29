@@ -1,9 +1,9 @@
-package com.example.opennms.service;
+package com.beaconstrategists.onms.service;
 
-import com.example.opennms.config.BridgeProperties;
-import com.example.opennms.dto.AlertmanagerAlert;
-import com.example.opennms.dto.EnrichedNode;
-import com.example.opennms.model.OpennmsModelProtos;
+import com.beaconstrategists.onms.config.BridgeProperties;
+import com.beaconstrategists.onms.dto.AlertmanagerAlert;
+import com.beaconstrategists.onms.dto.EnrichedNode;
+import com.beaconstrategists.onms.model.OpennmsModelProtos;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -111,7 +111,6 @@ public class AlertMapperService {
     public AlertmanagerAlert createResolvedAlert(String reductionKey) {
         AlertmanagerAlert alert = AlertmanagerAlert.builder().build();
         
-        // We need at least the reduction key to identify the alert
         alert.addLabel("alertname", "opennms_alarm_deleted");
         alert.addLabel("opennms_reduction_key", reductionKey);
         alert.setEndsAtNow();
@@ -242,14 +241,12 @@ public class AlertMapperService {
 
     /**
      * Build alert name from UEI.
-     * Converts UEI like "uei.opennms.org/nodes/nodeDown" to "opennms_nodes_nodeDown"
      */
     private String buildAlertName(String uei) {
         if (uei == null || uei.isEmpty()) {
             return "opennms_unknown";
         }
 
-        // Remove the "uei.opennms.org/" prefix if present
         String name = uei;
         if (name.startsWith("uei.opennms.org/")) {
             name = name.substring("uei.opennms.org/".length());
@@ -257,10 +254,8 @@ public class AlertMapperService {
             name = name.substring(4);
         }
 
-        // Replace slashes and other invalid characters with underscores
         name = name.replaceAll("[^a-zA-Z0-9_]", "_");
         
-        // Ensure it starts with a letter or underscore
         if (!name.isEmpty() && Character.isDigit(name.charAt(0))) {
             name = "_" + name;
         }
@@ -288,7 +283,6 @@ public class AlertMapperService {
      * Sanitize metadata key for use as Prometheus label.
      */
     private String sanitizeMetadataKey(String key) {
-        // Replace colons and other invalid chars with underscores
         return key.replaceAll("[^a-zA-Z0-9_]", "_").toLowerCase();
     }
 
@@ -296,7 +290,6 @@ public class AlertMapperService {
      * Check if an alarm should be forwarded based on configuration.
      */
     public boolean shouldForwardAlarm(OpennmsModelProtos.Alarm alarm) {
-        // Check severity filter
         if (!properties.getAlert().getIncludeSeverities().isEmpty()) {
             String severity = mapSeverity(alarm.getSeverity());
             if (!properties.getAlert().getIncludeSeverities().contains(severity)) {
@@ -304,7 +297,6 @@ public class AlertMapperService {
             }
         }
 
-        // Check UEI exclusion
         if (properties.getAlert().getExcludeUeis().contains(alarm.getUei())) {
             return false;
         }

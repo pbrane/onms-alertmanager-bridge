@@ -1,5 +1,3 @@
-# Grafana Dashboard Provisioning
-
 apiVersion: 1
 
 providers:

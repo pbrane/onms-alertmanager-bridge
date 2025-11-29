@@ -1,4 +1,4 @@
-package com.example.opennms.config;
+package com.beaconstrategists.onms.config;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;

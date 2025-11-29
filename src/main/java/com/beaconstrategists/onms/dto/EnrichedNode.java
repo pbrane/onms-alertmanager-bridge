@@ -1,6 +1,6 @@
-package com.example.opennms.dto;
+package com.beaconstrategists.onms.dto;
 
-import com.example.opennms.model.OpennmsModelProtos;
+import com.beaconstrategists.onms.model.OpennmsModelProtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

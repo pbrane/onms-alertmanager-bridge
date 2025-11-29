@@ -1,7 +1,7 @@
-package com.example.opennms.service;
+package com.beaconstrategists.onms.service;
 
-import com.example.opennms.config.BridgeProperties;
-import com.example.opennms.dto.AlertmanagerAlert;
+import com.beaconstrategists.onms.config.BridgeProperties;
+import com.beaconstrategists.onms.dto.AlertmanagerAlert;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -13,7 +13,6 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
-import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 
@@ -125,10 +124,8 @@ public class AlertmanagerClientService {
      */
     private boolean isRetryableError(Throwable throwable) {
         if (throwable instanceof WebClientResponseException ex) {
-            // Retry on 5xx errors or connection issues
             return ex.getStatusCode().is5xxServerError();
         }
-        // Retry on connection errors
         return true;
     }
 }

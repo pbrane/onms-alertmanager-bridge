@@ -1,8 +1,8 @@
-package com.example.opennms.service;
+package com.beaconstrategists.onms.service;
 
-import com.example.opennms.config.BridgeProperties;
-import com.example.opennms.dto.AlertmanagerAlert;
-import com.example.opennms.model.OpennmsModelProtos;
+import com.beaconstrategists.onms.config.BridgeProperties;
+import com.beaconstrategists.onms.dto.AlertmanagerAlert;
+import com.beaconstrategists.onms.model.OpennmsModelProtos;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -131,7 +131,6 @@ public class ActiveAlarmCacheService {
 
     /**
      * Periodically resend all active alarms to Alertmanager.
-     * This runs based on the configured resend interval.
      */
     @Scheduled(fixedRateString = "${opennms.bridge.alert.resend-interval:60000}")
     public void resendActiveAlarms() {
@@ -147,11 +146,9 @@ public class ActiveAlarmCacheService {
         for (Map.Entry<String, CachedAlarm> entry : activeAlarms.entrySet()) {
             CachedAlarm cached = entry.getValue();
             
-            // Update the alert's startsAt to ensure proper timing
             AlertmanagerAlert alert = alertMapperService.mapAlarmToAlert(cached.getAlarm());
             alerts.add(alert);
             
-            // Update last sent time
             cached.setLastSent(now);
         }
 

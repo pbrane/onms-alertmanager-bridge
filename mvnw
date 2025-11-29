@@ -1,7 +1,4 @@
 #!/bin/sh
-# Maven Wrapper script - downloads and runs Maven
-# For full Maven Wrapper, use: mvn wrapper:wrapper
-
 set -e
 
 MAVEN_VERSION="3.9.6"

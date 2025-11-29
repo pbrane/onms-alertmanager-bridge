@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "com.example.opennms.model";
+option java_package = "com.beaconstrategists.onms.model";
 option java_outer_classname = "OpennmsModelProtos";
 
 // The values differ from the standard codes in OpenNMS

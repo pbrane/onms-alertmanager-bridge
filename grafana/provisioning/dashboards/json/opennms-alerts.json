@@ -1,7 +1,5 @@
 {
-  "annotations": {
-    "list": []
-  },
+  "annotations": {"list": []},
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -10,526 +8,77 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "camptocamp-prometheus-alertmanager-datasource",
-        "uid": "${DS_OPENNMS_ALERTMANAGER}"
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 0
-      },
+      "datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"},
+      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
       "id": 1,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["count"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["count"], "fields": "", "values": false}, "textMode": "auto"},
       "pluginVersion": "10.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "camptocamp-prometheus-alertmanager-datasource",
-            "uid": "${DS_OPENNMS_ALERTMANAGER}"
-          },
-          "filters": "severity=\"critical\"",
-          "active": true,
-          "silenced": false,
-          "inhibited": false,
-          "refId": "A"
-        }
-      ],
+      "targets": [{"datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"}, "filters": "severity=\"critical\"", "active": true, "silenced": false, "inhibited": false, "refId": "A"}],
       "title": "Critical Alerts",
       "type": "stat",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null},
-              {"color": "red", "value": 1}
-            ]
-          }
-        }
-      }
+      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]}}}
     },
     {
-      "datasource": {
-        "type": "camptocamp-prometheus-alertmanager-datasource",
-        "uid": "${DS_OPENNMS_ALERTMANAGER}"
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 0
-      },
+      "datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"},
+      "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
       "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["count"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["count"], "fields": "", "values": false}, "textMode": "auto"},
       "pluginVersion": "10.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "camptocamp-prometheus-alertmanager-datasource",
-            "uid": "${DS_OPENNMS_ALERTMANAGER}"
-          },
-          "filters": "severity=\"major\"",
-          "active": true,
-          "silenced": false,
-          "inhibited": false,
-          "refId": "A"
-        }
-      ],
+      "targets": [{"datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"}, "filters": "severity=\"major\"", "active": true, "silenced": false, "inhibited": false, "refId": "A"}],
       "title": "Major Alerts",
       "type": "stat",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null},
-              {"color": "orange", "value": 1}
-            ]
-          }
-        }
-      }
+      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 1}]}}}
     },
     {
-      "datasource": {
-        "type": "camptocamp-prometheus-alertmanager-datasource",
-        "uid": "${DS_OPENNMS_ALERTMANAGER}"
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 0
-      },
+      "datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"},
+      "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0},
       "id": 3,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["count"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["count"], "fields": "", "values": false}, "textMode": "auto"},
       "pluginVersion": "10.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "camptocamp-prometheus-alertmanager-datasource",
-            "uid": "${DS_OPENNMS_ALERTMANAGER}"
-          },
-          "filters": "severity=\"minor\"",
-          "active": true,
-          "silenced": false,
-          "inhibited": false,
-          "refId": "A"
-        }
-      ],
+      "targets": [{"datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"}, "filters": "severity=\"minor\"", "active": true, "silenced": false, "inhibited": false, "refId": "A"}],
       "title": "Minor Alerts",
       "type": "stat",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null},
-              {"color": "yellow", "value": 1}
-            ]
-          }
-        }
-      }
+      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}]}}}
     },
     {
-      "datasource": {
-        "type": "camptocamp-prometheus-alertmanager-datasource",
-        "uid": "${DS_OPENNMS_ALERTMANAGER}"
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 0
-      },
+      "datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"},
+      "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0},
       "id": 4,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["count"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["count"], "fields": "", "values": false}, "textMode": "auto"},
       "pluginVersion": "10.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "camptocamp-prometheus-alertmanager-datasource",
-            "uid": "${DS_OPENNMS_ALERTMANAGER}"
-          },
-          "filters": "severity=\"warning\"",
-          "active": true,
-          "silenced": false,
-          "inhibited": false,
-          "refId": "A"
-        }
-      ],
+      "targets": [{"datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"}, "filters": "severity=\"warning\"", "active": true, "silenced": false, "inhibited": false, "refId": "A"}],
       "title": "Warning Alerts",
       "type": "stat",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null},
-              {"color": "blue", "value": 1}
-            ]
-          }
-        }
-      }
+      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "blue", "value": 1}]}}}
     },
     {
-      "datasource": {
-        "type": "camptocamp-prometheus-alertmanager-datasource",
-        "uid": "${DS_OPENNMS_ALERTMANAGER}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null}
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {"id": "byName", "options": "severity"},
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "mode": "basic",
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {"options": {"critical": {"color": "red", "index": 0}}, "type": "value"},
-                  {"options": {"major": {"color": "orange", "index": 1}}, "type": "value"},
-                  {"options": {"minor": {"color": "yellow", "index": 2}}, "type": "value"},
-                  {"options": {"warning": {"color": "blue", "index": 3}}, "type": "value"}
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 24,
-        "x": 0,
-        "y": 4
-      },
+      "datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"},
+      "fieldConfig": {"defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "inspect": false}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
+      "gridPos": {"h": 12, "w": 24, "x": 0, "y": 4},
       "id": 5,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": ["sum"],
-          "show": false
-        },
-        "showHeader": true
-      },
+      "options": {"cellHeight": "sm", "footer": {"countRows": false, "fields": "", "reducer": ["sum"], "show": false}, "showHeader": true},
       "pluginVersion": "10.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "camptocamp-prometheus-alertmanager-datasource",
-            "uid": "${DS_OPENNMS_ALERTMANAGER}"
-          },
-          "filters": "source=\"opennms\"",
-          "active": true,
-          "silenced": false,
-          "inhibited": false,
-          "refId": "A"
-        }
-      ],
+      "targets": [{"datasource": {"type": "camptocamp-prometheus-alertmanager-datasource", "uid": "${DS_OPENNMS_ALERTMANAGER}"}, "filters": "source=\"opennms\"", "active": true, "silenced": false, "inhibited": false, "refId": "A"}],
       "title": "OpenNMS Active Alerts",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false,
-              "generatorURL": true,
-              "opennms_meta_*": true
-            },
-            "indexByName": {
-              "alertname": 0,
-              "severity": 1,
-              "node_label": 2,
-              "instance": 3,
-              "service": 4,
-              "summary": 5,
-              "startsAt": 6
-            },
-            "renameByName": {
-              "alertname": "Alert Name",
-              "severity": "Severity",
-              "node_label": "Node",
-              "instance": "IP Address",
-              "service": "Service",
-              "summary": "Summary",
-              "startsAt": "Started At"
-            }
-          }
-        }
-      ],
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null}
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 16
-      },
+      "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+      "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 0, "gradientMode": "none", "hideFrom": {"legend": false, "tooltip": false, "viz": false}, "insertNulls": false, "lineInterpolation": "linear", "lineWidth": 1, "pointSize": 5, "scaleDistribution": {"type": "linear"}, "showPoints": "auto", "spanNulls": false, "stacking": {"group": "A", "mode": "none"}, "thresholdsStyle": {"mode": "off"}}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
       "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(opennms_bridge_alarms_received_total[5m])",
-          "legendFormat": "Alarms Received",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(opennms_bridge_alerts_sent_total[5m])",
-          "legendFormat": "Alerts Sent",
-          "range": true,
-          "refId": "B"
-        }
-      ],
+      "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single", "sort": "none"}},
+      "targets": [{"datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"}, "editorMode": "code", "expr": "rate(opennms_bridge_alarms_received_total[5m])", "legendFormat": "Alarms Received", "range": true, "refId": "A"}, {"datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"}, "editorMode": "code", "expr": "rate(opennms_bridge_alerts_sent_total[5m])", "legendFormat": "Alerts Sent", "range": true, "refId": "B"}],
       "title": "Bridge Throughput",
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {"color": "green", "value": null}
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 16
-      },
+      "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+      "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 0, "gradientMode": "none", "hideFrom": {"legend": false, "tooltip": false, "viz": false}, "insertNulls": false, "lineInterpolation": "linear", "lineWidth": 1, "pointSize": 5, "scaleDistribution": {"type": "linear"}, "showPoints": "auto", "spanNulls": false, "stacking": {"group": "A", "mode": "none"}, "thresholdsStyle": {"mode": "off"}}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
       "id": 7,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "opennms_bridge_active_alarms",
-          "legendFormat": "Active Alarms",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "opennms_bridge_node_cache_size",
-          "legendFormat": "Cached Nodes",
-          "range": true,
-          "refId": "B"
-        }
-      ],
+      "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single", "sort": "none"}},
+      "targets": [{"datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"}, "editorMode": "code", "expr": "opennms_bridge_active_alarms", "legendFormat": "Active Alarms", "range": true, "refId": "A"}, {"datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"}, "editorMode": "code", "expr": "opennms_bridge_node_cache_size", "legendFormat": "Cached Nodes", "range": true, "refId": "B"}],
       "title": "Bridge State",
       "type": "timeseries"
     }
@@ -540,50 +89,11 @@
   "tags": ["opennms", "alertmanager"],
   "templating": {
     "list": [
-      {
-        "current": {
-          "selected": false,
-          "text": "OpenNMS Alertmanager",
-          "value": "OpenNMS Alertmanager"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Alertmanager",
-        "multi": false,
-        "name": "DS_OPENNMS_ALERTMANAGER",
-        "options": [],
-        "query": "camptocamp-prometheus-alertmanager-datasource",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Prometheus",
-        "multi": false,
-        "name": "DS_PROMETHEUS",
-        "options": [],
-        "query": "prometheus",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      }
+      {"current": {"selected": false, "text": "OpenNMS Alertmanager", "value": "OpenNMS Alertmanager"}, "hide": 0, "includeAll": false, "label": "Alertmanager", "multi": false, "name": "DS_OPENNMS_ALERTMANAGER", "options": [], "query": "camptocamp-prometheus-alertmanager-datasource", "queryValue": "", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource"},
+      {"current": {"selected": false, "text": "Prometheus", "value": "Prometheus"}, "hide": 0, "includeAll": false, "label": "Prometheus", "multi": false, "name": "DS_PROMETHEUS", "options": [], "query": "prometheus", "queryValue": "", "refresh": 1, "regex": "", "skipUrlSync": false, "type": "datasource"}
     ]
   },
-  "time": {
-    "from": "now-1h",
-    "to": "now"
-  },
+  "time": {"from": "now-1h", "to": "now"},
   "timepicker": {},
   "timezone": "",
   "title": "OpenNMS Alerts Dashboard",

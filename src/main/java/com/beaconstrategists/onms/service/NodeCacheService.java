@@ -1,7 +1,7 @@
-package com.example.opennms.service;
+package com.beaconstrategists.onms.service;
 
-import com.example.opennms.dto.EnrichedNode;
-import com.example.opennms.model.OpennmsModelProtos;
+import com.beaconstrategists.onms.dto.EnrichedNode;
+import com.beaconstrategists.onms.model.OpennmsModelProtos;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
 import lombok.extern.slf4j.Slf4j;

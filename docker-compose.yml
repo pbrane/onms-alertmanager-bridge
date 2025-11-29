@@ -11,27 +11,16 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # Kafka Configuration
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_CONSUMER_GROUP: opennms-alertmanager-bridge
       KAFKA_TOPIC_ALARMS: alarms
       KAFKA_TOPIC_NODES: nodes
-      
-      # Alertmanager Configuration
       ALERTMANAGER_URL: http://alertmanager:9093
       ALERTMANAGER_ENABLED: "true"
-      
-      # OpenNMS Configuration
       OPENNMS_URL: http://opennms:8980/opennms
-      
-      # Alert Configuration
       ALERT_RESEND_INTERVAL: "60000"
       ENVIRONMENT: development
-      
-      # Logging
       LOG_LEVEL: DEBUG
-      
-      # JVM Options
       JAVA_OPTS: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Xms256m -Xmx512m"
     depends_on:
       - kafka

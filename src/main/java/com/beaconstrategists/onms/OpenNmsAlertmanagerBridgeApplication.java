@@ -1,4 +1,4 @@
-package com.example.opennms;
+package com.beaconstrategists.onms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

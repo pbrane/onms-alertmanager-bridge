@@ -12,8 +12,6 @@ kind: ConfigMap
 metadata:
   name: opennms-bridge-config
   namespace: opennms-bridge
-  labels:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
 data:
   application.yml: |
     spring:
@@ -24,7 +22,6 @@ data:
         consumer:
           group-id: ${KAFKA_CONSUMER_GROUP:opennms-alertmanager-bridge}
           auto-offset-reset: earliest
-    
     opennms:
       bridge:
         alertmanager:
@@ -38,28 +35,29 @@ data:
           static-labels:
             environment: ${ENVIRONMENT:production}
             cluster: ${CLUSTER_NAME:default}
-          label-mappings:
-            include-node-metadata: true
-            include-node-categories: true
         opennms:
           base-url: ${OPENNMS_URL}
-    
     server:
       port: 8080
-    
     management:
       endpoints:
         web:
           exposure:
             include: health,info,metrics,prometheus
-      endpoint:
-        health:
-          show-details: always
-    
     logging:
       level:
-        root: INFO
-        com.example.opennms: ${LOG_LEVEL:INFO}
+        com.beaconstrategists.onms: ${LOG_LEVEL:INFO}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opennms-bridge-env
+  namespace: opennms-bridge
+data:
+  KAFKA_BOOTSTRAP_SERVERS: "kafka.kafka.svc.cluster.local:9092"
+  ALERTMANAGER_URL: "http://alertmanager.monitoring.svc.cluster.local:9093"
+  OPENNMS_URL: "http://opennms.opennms.svc.cluster.local:8980/opennms"
 
 ---
 apiVersion: apps/v1
@@ -67,19 +65,11 @@ kind: Deployment
 metadata:
   name: opennms-alertmanager-bridge
   namespace: opennms-bridge
-  labels:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
-    app.kubernetes.io/component: bridge
 spec:
   replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: opennms-alertmanager-bridge
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -100,7 +90,6 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-              protocol: TCP
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
@@ -117,26 +106,10 @@ spec:
                 configMapKeyRef:
                   name: opennms-bridge-env
                   key: OPENNMS_URL
-            - name: KAFKA_CONSUMER_GROUP
-              value: "opennms-alertmanager-bridge"
-            - name: KAFKA_TOPIC_ALARMS
-              value: "alarms"
-            - name: KAFKA_TOPIC_NODES
-              value: "nodes"
-            - name: ENVIRONMENT
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: CLUSTER_NAME
-              value: "kubernetes"
             - name: LOG_LEVEL
               value: "INFO"
             - name: JAVA_OPTS
-              value: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError"
-          volumeMounts:
-            - name: config
-              mountPath: /app/config
-              readOnly: true
+              value: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
           resources:
             requests:
               memory: "256Mi"
@@ -150,48 +123,12 @@ spec:
               port: http
             initialDelaySeconds: 30
             periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: http
             initialDelaySeconds: 20
             periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
-      volumes:
-        - name: config
-          configMap:
-            name: opennms-bridge-config
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app.kubernetes.io/name: opennms-alertmanager-bridge
-                topologyKey: kubernetes.io/hostname
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: opennms-bridge-env
-  namespace: opennms-bridge
-  labels:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
-data:
-  KAFKA_BOOTSTRAP_SERVERS: "kafka.kafka.svc.cluster.local:9092"
-  ALERTMANAGER_URL: "http://alertmanager.monitoring.svc.cluster.local:9093"
-  OPENNMS_URL: "http://opennms.opennms.svc.cluster.local:8980/opennms"
 
 ---
 apiVersion: v1
@@ -199,43 +136,11 @@ kind: Service
 metadata:
   name: opennms-alertmanager-bridge
   namespace: opennms-bridge
-  labels:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       targetPort: http
-      protocol: TCP
       name: http
   selector:
     app.kubernetes.io/name: opennms-alertmanager-bridge
-
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: opennms-alertmanager-bridge
-  namespace: opennms-bridge
-  labels:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: opennms-alertmanager-bridge
-  endpoints:
-    - port: http
-      path: /actuator/prometheus
-      interval: 30s
-
----
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: opennms-alertmanager-bridge
-  namespace: opennms-bridge
-spec:
-  minAvailable: 0
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: opennms-alertmanager-bridge

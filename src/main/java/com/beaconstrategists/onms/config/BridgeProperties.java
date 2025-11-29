@@ -1,4 +1,4 @@
-package com.example.opennms.config;
+package com.beaconstrategists.onms.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

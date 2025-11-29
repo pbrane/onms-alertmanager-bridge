@@ -20,7 +20,7 @@ RUN ./mvnw package -DskipTests -B
 # Runtime stage
 FROM eclipse-temurin:21-jre-alpine
 
-LABEL maintainer="your-email@example.com"
+LABEL maintainer="info@beaconstrategists.com"
 LABEL description="OpenNMS to Prometheus Alertmanager Bridge"
 LABEL version="1.0.0"
 

@@ -10,15 +10,9 @@ spring:
       auto-offset-reset: earliest
       enable-auto-commit: true
       auto-commit-interval: 1000
-      # Increase fetch size for better throughput
       max-poll-records: 500
       fetch-min-size: 1
       fetch-max-wait: 500ms
-    properties:
-      # Security configuration (if needed)
-      # security.protocol: SASL_SSL
-      # sasl.mechanism: PLAIN
-      # sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_USER}" password="${KAFKA_PASSWORD}";
 
 # OpenNMS Bridge Configuration
 opennms:
@@ -42,35 +36,26 @@ opennms:
     
     # Alert configuration
     alert:
-      # How often to resend active alerts (Alertmanager expects continuous updates)
       resend-interval: ${ALERT_RESEND_INTERVAL:60000}
-      # How long to keep resolved alerts info
       resolved-retention: 5m
       
-      # Static labels added to all alerts
       static-labels:
         source: opennms
         environment: ${ENVIRONMENT:production}
       
-      # Label mapping configuration
       label-mappings:
         include-node-metadata: true
         node-metadata-prefix: opennms_meta_
         include-node-categories: true
         categories-label: opennms_categories
       
-      # Annotation mapping configuration
       annotation-mappings:
         include-node-details: true
         node-details-key: opennms_node
         include-description: true
         include-operator-instructions: true
       
-      # Severity filter (empty = all severities)
-      # Possible values: critical, major, minor, warning, info, resolved, unknown
       include-severities: []
-      
-      # UEIs to exclude from forwarding
       exclude-ueis: []
     
     # OpenNMS settings
@@ -101,7 +86,7 @@ management:
 logging:
   level:
     root: INFO
-    com.example.opennms: ${LOG_LEVEL:INFO}
+    com.beaconstrategists.onms: ${LOG_LEVEL:INFO}
     org.apache.kafka: WARN
     org.springframework.kafka: INFO
   pattern:

@@ -1,6 +1,5 @@
-package com.example.opennms.config;
+package com.beaconstrategists.onms.config;
 
-import com.example.opennms.model.OpennmsModelProtos;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -29,7 +28,6 @@ public class KafkaConfig {
         Map<String, Object> props = new HashMap<>(kafkaProperties.buildConsumerProperties(null));
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ByteArrayDeserializer.class);
-        // Enable auto commit for simplicity, can be changed for exactly-once semantics
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1000);
         return new DefaultKafkaConsumerFactory<>(props);
@@ -50,7 +48,6 @@ public class KafkaConfig {
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.RECORD);
-        // Handle tombstones (null values for deleted alarms)
         factory.setRecordFilterStrategy(record -> record.value() == null);
         return factory;
     }

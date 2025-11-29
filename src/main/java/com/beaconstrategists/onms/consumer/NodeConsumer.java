@@ -1,7 +1,7 @@
-package com.example.opennms.consumer;
+package com.beaconstrategists.onms.consumer;
 
-import com.example.opennms.model.OpennmsModelProtos;
-import com.example.opennms.service.NodeCacheService;
+import com.beaconstrategists.onms.model.OpennmsModelProtos;
+import com.beaconstrategists.onms.service.NodeCacheService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;

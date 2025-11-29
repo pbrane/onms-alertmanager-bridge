@@ -1,4 +1,4 @@
-package com.example.opennms.dto;
+package com.beaconstrategists.onms.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -91,7 +91,6 @@ public class AlertmanagerAlert {
      */
     public AlertmanagerAlert addLabel(String key, String value) {
         if (key != null && value != null && !value.isEmpty()) {
-            // Sanitize label key for Prometheus compatibility
             String sanitizedKey = sanitizeLabelKey(key);
             this.labels.put(sanitizedKey, value);
         }

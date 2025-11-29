@@ -1,7 +1,7 @@
-package com.example.opennms.service;
+package com.beaconstrategists.onms.service;
 
-import com.example.opennms.config.BridgeProperties;
-import com.example.opennms.dto.EnrichedNode;
+import com.beaconstrategists.onms.config.BridgeProperties;
+import com.beaconstrategists.onms.dto.EnrichedNode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
