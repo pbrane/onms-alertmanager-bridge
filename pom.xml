@@ -13,8 +13,8 @@
     </parent>
     
     <groupId>com.beaconstrategists</groupId>
-    <artifactId>opennms-alertmanager-bridge</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <artifactId>onms-alertmanager-bridge</artifactId>
+    <version>0.0.3-SNAPSHOT</version>
     <name>OpenNMS to Alertmanager Bridge</name>
     <description>Bridge service to forward OpenNMS alarms to Prometheus Alertmanager</description>
     

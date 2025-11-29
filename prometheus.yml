@@ -16,10 +16,10 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'opennms-alertmanager-bridge'
+  - job_name: 'onms-alertmanager-bridge'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['opennms-alertmanager-bridge:8080']
+      - targets: ['onms-alertmanager-bridge:8080']
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance

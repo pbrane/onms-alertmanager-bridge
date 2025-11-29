@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #
-# Build script for OpenNMS Alertmanager Bridge
+# Build script for onms-alertmanager-bridge
 #
 set -euo pipefail
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly PROJECT_NAME="opennms-alertmanager-bridge"
-readonly DEFAULT_IMAGE_NAME="opennms-alertmanager-bridge"
+readonly PROJECT_NAME="onms-alertmanager-bridge"
+readonly DEFAULT_IMAGE_NAME="onms-alertmanager-bridge"
 readonly DEFAULT_IMAGE_TAG="latest"
 
 readonly RED='\033[0;31m'

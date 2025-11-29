@@ -21,8 +21,9 @@ RUN ./mvnw package -DskipTests -B
 FROM eclipse-temurin:21-jre-alpine
 
 LABEL maintainer="info@beaconstrategists.com"
-LABEL description="OpenNMS to Prometheus Alertmanager Bridge"
+LABEL description="onms-alertmanager-bridge - OpenNMS to Prometheus Alertmanager Bridge"
 LABEL version="1.0.0"
+LABEL org.opencontainers.image.source="https://github.com/YOUR_USERNAME/onms-alertmanager-bridge"
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S appgroup && \

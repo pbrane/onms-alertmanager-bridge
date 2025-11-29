@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: opennms-bridge
   labels:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
+    app.kubernetes.io/name: onms-alertmanager-bridge
 
 ---
 apiVersion: v1
@@ -16,11 +16,11 @@ data:
   application.yml: |
     spring:
       application:
-        name: opennms-alertmanager-bridge
+        name: onms-alertmanager-bridge
       kafka:
         bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
         consumer:
-          group-id: ${KAFKA_CONSUMER_GROUP:opennms-alertmanager-bridge}
+          group-id: ${KAFKA_CONSUMER_GROUP:onms-alertmanager-bridge}
           auto-offset-reset: earliest
     opennms:
       bridge:
@@ -63,17 +63,17 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opennms-alertmanager-bridge
+  name: onms-alertmanager-bridge
   namespace: opennms-bridge
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: opennms-alertmanager-bridge
+      app.kubernetes.io/name: onms-alertmanager-bridge
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: opennms-alertmanager-bridge
+        app.kubernetes.io/name: onms-alertmanager-bridge
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8080"
@@ -85,7 +85,7 @@ spec:
         fsGroup: 1001
       containers:
         - name: bridge
-          image: opennms-alertmanager-bridge:latest
+          image: onms-alertmanager-bridge:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -134,7 +134,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: opennms-alertmanager-bridge
+  name: onms-alertmanager-bridge
   namespace: opennms-bridge
 spec:
   type: ClusterIP
@@ -143,4 +143,4 @@ spec:
       targetPort: http
       name: http
   selector:
-    app.kubernetes.io/name: opennms-alertmanager-bridge
+    app.kubernetes.io/name: onms-alertmanager-bridge
