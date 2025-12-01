@@ -6,9 +6,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class OpenNmsAlertmanagerBridgeApplication {
+public class OnmsAlertmanagerBridgeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OpenNmsAlertmanagerBridgeApplication.class, args);
+        SpringApplication.run(OnmsAlertmanagerBridgeApplication.class, args);
     }
 }
