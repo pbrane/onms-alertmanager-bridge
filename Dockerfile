@@ -1,38 +1,15 @@
-# Multi-stage build for OpenNMS to Alertmanager Bridge
-FROM eclipse-temurin:21-jdk-alpine AS builder
-
-WORKDIR /app
-
-# Copy Maven wrapper and pom.xml first for better caching
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-
-# Download dependencies (this layer will be cached)
-RUN chmod +x mvnw && ./mvnw dependency:go-offline -B
-
-# Copy source code
-COPY src src
-
-# Build the application
-RUN ./mvnw package -DskipTests -B
-
 # Runtime stage
 FROM eclipse-temurin:21-jre-alpine
 
-LABEL maintainer="info@beaconstrategists.com"
-LABEL description="onms-alertmanager-bridge - OpenNMS to Prometheus Alertmanager Bridge"
-LABEL version="1.0.0"
-LABEL org.opencontainers.image.source="https://github.com/YOUR_USERNAME/onms-alertmanager-bridge"
+ARG VERSION
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S appgroup && \
-    adduser -u 1001 -S appuser -G appgroup
+    adduser -u 1001 -G appgroup -s /sbin/nologin -S appuser
+
+ADD target/onms-alertmanager-bridge-${VERSION}.jar /app/onms-alertmanager-bridge.jar
 
 WORKDIR /app
-
-# Copy the built artifact
-COPY --from=builder /app/target/*.jar app.jar
 
 # Set ownership
 RUN chown -R appuser:appgroup /app
@@ -51,4 +28,16 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 EXPOSE 8080
 
 # Entry point
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar onms-alertmanager-bridge.jar"]
+
+ARG DATE
+ARG GIT_SHORT_HASH
+
+LABEL org.opencontainers.image.created="${DATE}" \
+      org.opencontainers.image.authors="info@beaconstrategists.com" \
+      org.opencontainers.image.url="TBD" \
+      org.opencontainers.image.source="ttps://github.com/pbrane/onms-alertmanager-bridge" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.revision="${GIT_SHORT_HASH}" \
+      org.opencontainers.image.vendor="pbrane" \
+      org.opencontainers.image.licenses="Apache-2.0"
